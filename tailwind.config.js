@@ -4,7 +4,14 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [
+    require("daisyui"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/typography"),
+  ],
   daisyui: {
     themes: ["winter", "dracula"],
   },
