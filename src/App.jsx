@@ -9,7 +9,6 @@ function App() {
   return (
     <div>
       <HomeLayout />
-      Library mtaani
       <Routes>
         <Route exact path="/" element={<Landing />} />
       </Routes>
