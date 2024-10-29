@@ -85,8 +85,8 @@ const News = () => {
       <div className="slider-contaier">
         <Slider {...settings}>
           {news &&
-            news.map((story) => {
-              return <NewsCard story={story} />;
+            news.map((story, index) => {
+              return <NewsCard key={index} story={story} />;
             })}
         </Slider>
       </div>

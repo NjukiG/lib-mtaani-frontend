@@ -61,7 +61,7 @@ const Recomended = () => {
       {/* Rendering the books */}
       <Slider {...settings}>
         {books &&
-          books.slice(8, 15).map((book, index) => <BookCard book={book} />)}
+          books.slice(8, 15).map((book, index) => <BookCard key={index} book={book} />)}
       </Slider>
     </div>
   );

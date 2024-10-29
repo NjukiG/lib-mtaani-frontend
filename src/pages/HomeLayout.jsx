@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-// import Header from "../components/Header";
+import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 const HomeLayout = () => {
@@ -7,7 +7,7 @@ const HomeLayout = () => {
   const isPageLoading = navigation.state === "loading";
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Navbar />
       {isPageLoading ? (
         <Loading />

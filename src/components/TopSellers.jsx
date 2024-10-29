@@ -97,7 +97,7 @@ const TopSellers = () => {
       {/* Rendering the books */}
       <Slider {...settings}>
         {filteredBooks &&
-          filteredBooks.map((book, index) => <BookCard book={book} />)}
+          filteredBooks.map((book, index) => <BookCard key={index} book={book} />)}
       </Slider>
     </div>
   );

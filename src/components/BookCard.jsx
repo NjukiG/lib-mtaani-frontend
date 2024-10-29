@@ -4,11 +4,13 @@ import { getImgUrl } from "../utils/getImgUrl";
 import { Link } from "react-router-dom";
 
 const BookCard = ({ book }) => {
-  console.log(book);
   return (
     <div className="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
       <div className="px-4 py-2">
-        <Link to={`/books/${book._id}`} className="text-xl font-bold text-gray-800 uppercase dark:text-white">
+        <Link
+          to={`/books/${book._id}`}
+          className="text-xl font-bold text-gray-800 uppercase dark:text-white"
+        >
           {book.title}
         </Link>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">

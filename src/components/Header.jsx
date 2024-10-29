@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../utils/AuthContext";
+// import { useAuth } from "../utils/AuthContext";
 
 const Header = () => {
-  const { user, logoutUser } = useAuth();
+  // const { user, logoutUser } = useAuth();
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    logoutUser();
-  };
+  // const handleLogout = (e) => {
+  //   e.preventDefault();
+  //   logoutUser();
+  // };
 
   return (
     <header className=" bg-neutral py-2 text-neutral-content ">
@@ -15,12 +15,13 @@ const Header = () => {
         {/* USER */}
         {/* LINKS */}
         <div className="flex gap-x-6 justify-center items-center">
-          {user ? (
+          {/* {user ? (
             <div className="flex gap-x-2 sm:gap-x-8 items-center">
-              <p className="text-xs sm:text-sm">Hello, {user.FullName}</p>
+              <p className="text-xs sm:text-sm">Hello, </p>
+              {user.FullName}
               <button
                 className="btn btn-xs btn-outline btn-primary "
-                onClick={handleLogout}
+                // onClick={handleLogout}
               >
                 Logout
               </button>
@@ -37,7 +38,16 @@ const Header = () => {
                 Create an Account
               </Link>
             </>
-          )}
+          )} */}
+
+          <>
+            <Link to="/login" className="link link-hover text-xs sm:text-sm">
+              Sign in
+            </Link>
+            <Link to="/register" className="link link-hover text-xs sm:text-sm">
+              Create an Account
+            </Link>
+          </>
         </div>
       </div>
     </header>
