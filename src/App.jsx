@@ -5,8 +5,8 @@ import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Error from "./pages/Error";
-// import Login from "./pages/Login";
-// import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Landing />} />
 
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route path="*" element={<Error />} />
       </Routes>

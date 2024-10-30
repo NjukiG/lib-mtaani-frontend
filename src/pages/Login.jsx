@@ -3,24 +3,24 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 
 const Login = () => {
-//   const loginForm = useRef(null);
+  const loginForm = useRef(null);
 
-//   const navigate = useNavigate();
-//   const { user, loginUser } = useAuth();
+  const navigate = useNavigate();
+  const { user, loginUser } = useAuth();
 
-//   useEffect(() => {
-//     if (user) {
-//       navigate("/");
-//     }
-//   }, [navigate, user]);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
-//   const handleLogin = (e) => {
-//     e.preventDefault();
-//     const Email = loginForm.current.Email.value;
-//     const Password = loginForm.current.Password.value;
-//     const userInfo = { Email, Password };
-//     loginUser(userInfo);
-//   };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const Email = loginForm.current.Email.value;
+    const Password = loginForm.current.Password.value;
+    const userInfo = { Email, Password };
+    loginUser(userInfo);
+  };
   return (
     <section className="">
       <div className=" lg:min-h-screen lg:grid-cols-12">
