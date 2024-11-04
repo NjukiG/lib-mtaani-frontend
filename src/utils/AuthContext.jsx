@@ -1,12 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  //   const url = "http://localhost:3000";
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,23 +13,49 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (userData) => {
     try {
-      const response = await fetch("http://localhost:3000/public/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "http://localhost:3000/public/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       const data = await response.json();
       console.log(data.Message);
-      toast.success(data.Message);
     } catch (error) {
       console.error("Register user error:", error);
     }
   };
 
-  const loginUser = async (credentials) => {};
+  // Placeholder for other auth functions
+  const loginUser = async (credentials) => {
+    try {
+      const response = await fetch("http://localhost:3000/public/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      await checkUserStatus();
+      console.log(data);
+      // toast.success("Logged in successfully");
+      navigate("/");
+    } catch (error) {
+      console.error(
+        "Login user error:",
+        error || "Please double check your credentials"
+      );
+      // toast.error("Please double check your credentials");
+    }
+  };
 
   const logoutUser = async () => {};
 
@@ -40,25 +64,29 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("http://localhost:3000/protected/validate", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`, // Ensure the token is included
-        },
-      });
+      const response = await fetch(
+        "http://localhost:3000/protected/api/validate",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Ensure the token is included
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch");
       }
 
       const data = await response.json();
-      setUser(data.user);
-      console.log(data.user); // Handle the validated user data
+      setUser(data.User);
+      console.log(data.User); // Handle the validated user data
     } catch (error) {
       console.error("Check user status error:", error);
     }
   };
 
+  // Make sure all functions and user are provided in the value prop
   return (
     <AuthContext.Provider
       value={{ registerUser, loginUser, logoutUser, checkUserStatus, user }}
@@ -68,6 +96,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// Hook to use the AuthContext in components
 export const useAuth = () => {
   return useContext(AuthContext);
 };

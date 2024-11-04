@@ -4,6 +4,9 @@ import { useAuth } from "../utils/AuthContext";
 
 const Register = () => {
   const { registerUser, user } = useAuth();
+  console.log(registerUser);
+  console.log(user);
+
   const navigate = useNavigate();
   const registerForm = useRef(null);
 
@@ -11,14 +14,14 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     // Form details
-    const FullName = registerForm.current.FullName.value;
+    const Name = registerForm.current.Name.value;
     const Email = registerForm.current.Email.value;
     const Password = registerForm.current.Password.value;
     const Role = "Buyer";
 
     try {
       const userInfo = {
-        FullName,
+        Name,
         Email,
         Password,
         Role,
@@ -31,7 +34,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/cart");
+      navigate("/");
     }
   }, [navigate, user]);
 
@@ -57,18 +60,15 @@ const Register = () => {
               onSubmit={handleRegister}
             >
               <div className="col-span-6">
-                <label
-                  htmlFor="FullName"
-                  className="block text-sm font-medium "
-                >
-                  Full Name
+                <label htmlFor="Name" className="block text-sm font-medium ">
+                  Name
                 </label>
 
                 <input
                   type="text"
-                  id="FullName"
-                  name="FullName"
-                  placeholder="Enter your Full Name"
+                  id="Name"
+                  name="Name"
+                  placeholder="Enter your Name"
                   required
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                 />
@@ -119,7 +119,7 @@ const Register = () => {
                   type="text"
                   id="Role"
                   name="Role"
-                  placeholder="Role is either Author or Admin"
+                  placeholder="Role is either Buyer or Admin"
                   required
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                 />
