@@ -57,7 +57,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = async () => {};
+  const logoutUser = async () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   const checkUserStatus = async () => {
     try {

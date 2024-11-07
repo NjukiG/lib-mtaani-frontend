@@ -11,6 +11,7 @@ export default {
     require("daisyui"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
   ],
   daisyui: {
     themes: ["winter", "dracula"],

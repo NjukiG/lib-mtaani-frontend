@@ -85,7 +85,7 @@ const Login = () => {
                     href="/register"
                     className="text-gray-500 underline dark:text-gray-500"
                   >
-                    Log in
+                    Register account
                   </a>
                   .
                 </p>
