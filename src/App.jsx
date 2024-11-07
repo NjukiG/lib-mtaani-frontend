@@ -7,6 +7,8 @@ import Landing from "./pages/Landing";
 import Error from "./pages/Error";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   return (
@@ -17,6 +19,13 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Private routes */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} /> */}
+        </Route>
 
         <Route path="*" element={<Error />} />
       </Routes>
