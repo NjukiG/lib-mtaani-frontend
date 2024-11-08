@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { BsMoonFill, BsSunFill } from "react-icons/bs";
+import { BsMoonFill, BsSunFill, BsCart3 } from "react-icons/bs";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
 // import { FaBarsStaggered } from "react-icons/fa6";
@@ -57,13 +57,16 @@ const Navbar = () => {
         </div>
 
         {/* THEME ICONS */}
-        <label className="swap swap-rotate">
-          <input type="checkbox" onChange={handleTheme} />
-          {/* sun icon*/}
-          <BsSunFill className="swap-on h-4 w-4" />
-          {/* moon icon*/}
-          <BsMoonFill className="swap-off h-4 w-4" />
-        </label>
+        
+          {" "}
+          <label className="swap swap-rotate">
+            <input type="checkbox" onChange={handleTheme} />
+            {/* sun icon*/}
+            <BsSunFill className="swap-on h-4 w-4" />
+            {/* moon icon*/}
+            <BsMoonFill className="swap-off h-4 w-4" />
+          </label>
+        
       </div>
       <div className="navbar-center">
         {/* Title */}
@@ -82,7 +85,18 @@ const Navbar = () => {
             className="input input-bordered w-24 md:w-auto"
           />
         </div>
-        <div className="dropdown dropdown-end">
+
+        {/* CART LINK*/}
+        <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
+            <div className="indicator">
+              <BsCart3 className="h-6 w-6" />
+              <span className="badge badge-sm badge-primary indicator-item">
+              {/* {cartItems.length} */}
+              2
+              </span>
+            </div>
+          </NavLink>
+        {/* <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <div className="indicator">
               <svg
@@ -114,7 +128,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}

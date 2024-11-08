@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+import { useShop } from "../utils/ShopContext";
 
 const Cart = () => {
-  return (
-    <div>Cart</div>
-  )
-}
+  const { user } = useShop();
+  console.log(user)
+  return <div>Cart</div>;
+};
 
-export default Cart
+export default Cart;
