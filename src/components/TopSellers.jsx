@@ -2,35 +2,20 @@ import React, { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import BookCard from "./BookCard";
 import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import { useShop } from "../utils/ShopContext";
+import { Link } from "react-router-dom";
 
 const TopSellers = () => {
-  const categories = [
-    "Choose a Category",
-    "Adventure",
-    "Business",
-    "Fiction",
-    "Horror",
-    "Marketing",
-    "Books",
-  ];
+  const { categories, books, fetchCategories, fetchBooksByCategory } =
+    useShop();
 
-  const [books, setBooks] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState("Choose a Category");
-
-  useEffect(() => {
-    fetch("books.json")
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
 
   const filteredBooks =
     selectedCategory === "Choose a Category"
       ? books
-      : books.filter(
-          (book) => book.category === selectedCategory.toLocaleLowerCase()
-        );
+      : books.filter((book) => book.CategoryID === parseInt(selectedCategory));
 
   var settings = {
     dots: true,
@@ -79,12 +64,13 @@ const TopSellers = () => {
           </div>
           <select
             className="select select-bordered"
-            onClick={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => setSelectedCategory(e.target.value)}
           >
+            <option>Choose a Category</option>
             {categories.map((category, index) => {
               return (
-                <option key={index} value={category}>
-                  {category}
+                <option key={category.ID} value={category.ID}>
+                  {category.ID}. {category.Title}
                 </option>
               );
             })}
@@ -97,7 +83,11 @@ const TopSellers = () => {
       {/* Rendering the books */}
       <Slider {...settings}>
         {filteredBooks &&
-          filteredBooks.map((book, index) => <BookCard key={index} book={book} />)}
+          filteredBooks.map((book) => (
+            // <Link to={`/books/${book.ID}`} key={book.ID}>
+            <BookCard key={book.ID} book={book} />
+            // </Link>
+          ))}
       </Slider>
     </div>
   );

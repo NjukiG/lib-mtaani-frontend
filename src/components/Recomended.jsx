@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 import Slider from "react-slick";
+import { useShop } from "../utils/ShopContext";
 
 const Recomended = () => {
-  const categories = [
-    "Choose a Category",
-    "Adventure",
-    "Business",
-    "Fiction",
-    "Horror",
-    "Marketing",
-    "Books",
-  ];
-
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    fetch("books.json")
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
+  const { categories, books, fetchCategories, fetchBooksByCategory } =
+    useShop();
 
   var settings = {
     dots: true,
@@ -61,7 +47,9 @@ const Recomended = () => {
       {/* Rendering the books */}
       <Slider {...settings}>
         {books &&
-          books.slice(8, 15).map((book, index) => <BookCard key={index} book={book} />)}
+          books
+            .slice(8, 15)
+            .map((book) => <BookCard key={book.ID} book={book} />)}
       </Slider>
     </div>
   );
