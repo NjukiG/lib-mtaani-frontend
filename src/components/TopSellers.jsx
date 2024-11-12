@@ -9,7 +9,6 @@ const TopSellers = () => {
   const { categories, books, fetchCategories, fetchBooksByCategory } =
     useShop();
 
-
   const [selectedCategory, setSelectedCategory] = useState("Choose a Category");
 
   const filteredBooks =
@@ -83,11 +82,7 @@ const TopSellers = () => {
       {/* Rendering the books */}
       <Slider {...settings}>
         {filteredBooks &&
-          filteredBooks.map((book) => (
-            // <Link to={`/books/${book.ID}`} key={book.ID}>
-            <BookCard key={book.ID} book={book} />
-            // </Link>
-          ))}
+          filteredBooks.map((book) => <BookCard key={book.ID} book={book} />)}
       </Slider>
     </div>
   );

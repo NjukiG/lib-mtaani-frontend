@@ -5,7 +5,8 @@ import { formatPrice } from "../utils";
 
 const SingleBook = () => {
   const { ID } = useParams();
-  const { book, cartItems, fetchBookById, fetchCartDetails } = useShop();
+  const { book, cartItems, fetchBookById, fetchCartDetails, addItemToCart } =
+    useShop();
 
   useEffect(() => {
     fetchBookById(ID);
@@ -67,8 +68,6 @@ const SingleBook = () => {
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
             </select>
           </div>
           {/* CART BUTTON */}

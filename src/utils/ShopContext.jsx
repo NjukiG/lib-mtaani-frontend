@@ -7,13 +7,18 @@ const ShopContext = createContext();
 
 export const ShopProvider = ({ children }) => {
   const { user } = useAuth();
+
   const navigate = useNavigate();
+  
 
   const [categories, setCategories] = useState([]);
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState({});
   const [categoryBooks, setCategoryBooks] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [cartTotals, setCartTotals] = useState(0);
+
+  const token = localStorage.getItem("token");
 
   // Function to fetch categories
   const fetchCategories = async () => {
@@ -76,7 +81,7 @@ export const ShopProvider = ({ children }) => {
   const fetchCartDetails = async (cartId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/cart/${cartId}/review`,
+        `http://localhost:3000/protected/api/cart/${user.ID}/review`,
         {
           method: "GET",
           headers: {
@@ -95,7 +100,36 @@ export const ShopProvider = ({ children }) => {
         console.error("Expected an array but got:", data);
       }
     } catch (error) {
-      console.error(`Failed to fetch product with ID ${cartId}:`, error);
+      console.error(`Failed to fetch book with ID ${cartId}:`, error);
+    }
+  };
+
+  // function to add items to cart
+  const addItemToCart = async (bookId, quantity) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/cart/${user.ID}/items`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ bookId, quantity }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        // Update cart in context
+        setCartItems(data["CartItem"]);
+        console.log(data);
+        // toast.success("Item added to cart");
+        navigate("/");
+      } else {
+        console.error("Failed to add item:", data.Error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -112,12 +146,15 @@ export const ShopProvider = ({ children }) => {
     categories,
     books,
     book,
+    categoryBooks,
     cartItems,
+    cartTotals,
     fetchCategories,
     fetchBooks,
     fetchBookById,
     fetchBooksByCategory,
     fetchCartDetails,
+    addItemToCart,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
