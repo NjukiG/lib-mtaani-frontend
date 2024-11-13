@@ -7,7 +7,6 @@ import CartItemsList from "../components/CartItemsList";
 import CartTotals from "../components/CartTotals";
 
 const Cart = () => {
-  
   const { user } = useAuth();
   const { cartItems, fetchCartDetails } = useShop();
 
@@ -22,7 +21,7 @@ const Cart = () => {
 
   return (
     <>
-      {/* <SectionTitle text="Shopping Cart" />
+      <SectionTitle text="Shopping Cart" />
       {cartItems.length === 0 ? (
         <>
           <SectionTitle text="Your Shopping Cart is Empty" />
@@ -46,7 +45,7 @@ const Cart = () => {
             )}
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 };

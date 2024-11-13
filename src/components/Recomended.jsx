@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 import Slider from "react-slick";
 import { useShop } from "../utils/ShopContext";
+import SectionTitle from "./SectionTitle";
 
 const Recomended = () => {
   const { categories, books, fetchCategories, fetchBooksByCategory } =
@@ -43,7 +44,8 @@ const Recomended = () => {
   };
   return (
     <div className="py-10">
-      <h2 className="text-3xl font-semibold mb-6">Recommended for you</h2>
+      <SectionTitle text="Recommended for you" />
+
       {/* Rendering the books */}
       <Slider {...settings}>
         {books &&

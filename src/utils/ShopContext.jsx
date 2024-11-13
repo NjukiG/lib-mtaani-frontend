@@ -9,7 +9,6 @@ export const ShopProvider = ({ children }) => {
   const { user } = useAuth();
 
   const navigate = useNavigate();
-  
 
   const [categories, setCategories] = useState([]);
   const [books, setBooks] = useState([]);
@@ -133,7 +132,34 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
-  // Fetch products and categories on initial render
+  // Function to remove an item from the cart
+  const removeItemFromCart = async (bookId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/cart/${user.ID}/items/${bookId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        // Update cart in context
+        const updatedCart = cartItems.filter((item) => item.bookId !== bookId);
+        setCartItems(updatedCart);
+        console.log("Removed item", updatedCart);
+        // toast.error("Item removed from your cart");
+        navigate("/");
+      } else {
+        console.error("Failed to remove item");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // Fetch books and categories on initial render
   useEffect(() => {
     // if (!token) throw new Error("No token found");
 
@@ -155,6 +181,7 @@ export const ShopProvider = ({ children }) => {
     fetchBooksByCategory,
     fetchCartDetails,
     addItemToCart,
+    removeItemFromCart,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

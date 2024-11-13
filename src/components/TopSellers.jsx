@@ -4,6 +4,7 @@ import BookCard from "./BookCard";
 import Slider from "react-slick";
 import { useShop } from "../utils/ShopContext";
 import { Link } from "react-router-dom";
+import SectionTitle from "./SectionTitle";
 
 const TopSellers = () => {
   const { categories, books, fetchCategories, fetchBooksByCategory } =
@@ -53,7 +54,7 @@ const TopSellers = () => {
 
   return (
     <div className="py-10">
-      <h2 className="text-3xl font-semibold mb-6">Top Sellers</h2>
+      <SectionTitle text="Top Sellers" />
 
       {/* Category Filtering */}
       <div>
