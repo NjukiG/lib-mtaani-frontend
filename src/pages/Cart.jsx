@@ -22,7 +22,7 @@ const Cart = () => {
   return (
     <>
       <SectionTitle text="Shopping Cart" />
-      {cartItems.length === 0 ? (
+      {cartItems && cartItems.length === 0 ? (
         <>
           <SectionTitle text="Your Shopping Cart is Empty" />
           <Link to="/">Continue Shopping?</Link>

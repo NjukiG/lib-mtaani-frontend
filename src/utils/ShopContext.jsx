@@ -16,6 +16,7 @@ export const ShopProvider = ({ children }) => {
   const [categoryBooks, setCategoryBooks] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [cartTotals, setCartTotals] = useState(0);
+  const [shippingDetails, setShippingDetails] = useState({});
 
   const token = localStorage.getItem("token");
 
@@ -159,6 +160,53 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // Fetch Shipping details
+  const fetchShippingDetails = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/protected/api/shipping-details",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data.ShippingDetails);
+      setShippingDetails(data.ShippingDetails);
+    } catch (error) {
+      console.error("Failed to fetch shipping details:", error);
+    }
+  };
+
+  // Update Shipping details
+  const updateShippingDetails = async (details) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/protected/api/shipping-details",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(details),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      setShippingDetails(data);
+      // toast.success("Shiiping details updated");
+      navigate("/checkout");
+    } catch (error) {
+      console.error(error);
+      // toast.error("Please double check your details");
+    }
+  };
+
   // Fetch books and categories on initial render
   useEffect(() => {
     // if (!token) throw new Error("No token found");
@@ -175,6 +223,7 @@ export const ShopProvider = ({ children }) => {
     categoryBooks,
     cartItems,
     cartTotals,
+    shippingDetails,
     fetchCategories,
     fetchBooks,
     fetchBookById,
@@ -182,6 +231,8 @@ export const ShopProvider = ({ children }) => {
     fetchCartDetails,
     addItemToCart,
     removeItemFromCart,
+    fetchShippingDetails,
+    updateShippingDetails,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
