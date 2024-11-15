@@ -17,6 +17,7 @@ export const ShopProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartTotals, setCartTotals] = useState(0);
   const [shippingDetails, setShippingDetails] = useState({});
+  const [orders, setOrders] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -160,6 +161,33 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // Function to add shipping details
+  const addShippingDetails = async (shippingDetails) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/protected/api/shipping-details",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(shippingDetails),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add shipping details");
+      }
+
+      const data = await response.json();
+      setShippingDetails(data.ShippingDetails); // Update the state with the newly added details
+      console.log("Shipping details added:", data.ShippingDetails);
+    } catch (error) {
+      console.error("Error adding shipping details:", error);
+    }
+  };
+
   // Fetch Shipping details
   const fetchShippingDetails = async () => {
     try {
@@ -207,6 +235,52 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // Fetch orders
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/cart/${user.ID}/orders`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setOrders(data.Orders);
+      console.log(data.Orders);
+    } catch (error) {
+      console.error(`Failed to fetch orders with ID ${user.ID} :`, error);
+    }
+  };
+
+  // Make and order
+  const makeNewOrder = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/cart/${user.ID}/orders`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data.Order);
+      // setOrders(data.Order);
+      // toast.success(data.Message);
+      navigate("/orders");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // Fetch books and categories on initial render
   useEffect(() => {
     // if (!token) throw new Error("No token found");
@@ -224,6 +298,7 @@ export const ShopProvider = ({ children }) => {
     cartItems,
     cartTotals,
     shippingDetails,
+    orders,
     fetchCategories,
     fetchBooks,
     fetchBookById,
@@ -231,8 +306,11 @@ export const ShopProvider = ({ children }) => {
     fetchCartDetails,
     addItemToCart,
     removeItemFromCart,
+    addShippingDetails,
     fetchShippingDetails,
     updateShippingDetails,
+    fetchOrders,
+    makeNewOrder,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

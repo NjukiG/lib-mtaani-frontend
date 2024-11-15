@@ -3,7 +3,25 @@ import { useShop } from "../utils/ShopContext";
 
 const CheckoutForm = ({ shippingDetails }) => {
   const checkoutForm = useRef(null);
-  const { updateShippingDetails, makeNewOrder } = useShop();
+  const {
+    // shippingDetail,
+    addShippingDetails,
+    updateShippingDetails,
+    makeNewOrder,
+  } = useShop();
+
+  useEffect(() => {
+    // Pre-fill the form if shipping details exist
+    if (shippingDetails && Object.keys(shippingDetails).length > 0) {
+      const form = checkoutForm.current;
+      form.Address.value = shippingDetails.Address || "";
+      form.City.value = shippingDetails.City || "";
+      form.State.value = shippingDetails.State || "";
+      form.PostalCode.value = shippingDetails.PostalCode || "";
+      form.Country.value = shippingDetails.Country || "";
+      form.PhoneNumber.value = shippingDetails.PhoneNumber || "";
+    }
+  }, [shippingDetails]);
 
   const handleCheckoutFormSubmit = (e) => {
     e.preventDefault();
@@ -24,20 +42,27 @@ const CheckoutForm = ({ shippingDetails }) => {
       PhoneNumber,
     };
 
-    updateShippingDetails(shippingInfo);
-    makeNewOrder();
+    if (shippingDetails && Object.keys(shippingDetails).length > 0) {
+      // If shipping details exist, update them
+      updateShippingDetails(shippingInfo);
+    } else {
+      // Otherwise, add new shipping details
+      addShippingDetails(shippingInfo);
+    }
+
+    makeNewOrder(); // Place the order after updating/adding shipping details
   };
 
   return (
-    <div className=" p-8 rounded-lg shadow-md">
-      <h3 className="text-2xl font-semibold mb-6 ">Shipping Information</h3>
+    <div className="p-8 rounded-lg shadow-md">
+      <h3 className="text-2xl font-semibold mb-6">Shipping Information</h3>
       <form
         ref={checkoutForm}
         onSubmit={handleCheckoutFormSubmit}
         className="space-y-6"
       >
         <div>
-          <label htmlFor="Address" className="block text-sm font-medium ">
+          <label htmlFor="Address" className="block text-sm font-medium">
             Address
           </label>
           <input
@@ -50,7 +75,7 @@ const CheckoutForm = ({ shippingDetails }) => {
         </div>
 
         <div>
-          <label htmlFor="City" className="block text-sm font-medium ">
+          <label htmlFor="City" className="block text-sm font-medium">
             City
           </label>
           <input
@@ -63,7 +88,7 @@ const CheckoutForm = ({ shippingDetails }) => {
         </div>
 
         <div>
-          <label htmlFor="State" className="block text-sm font-medium ">
+          <label htmlFor="State" className="block text-sm font-medium">
             State
           </label>
           <input
@@ -76,7 +101,7 @@ const CheckoutForm = ({ shippingDetails }) => {
         </div>
 
         <div>
-          <label htmlFor="PostalCode" className="block text-sm font-medium ">
+          <label htmlFor="PostalCode" className="block text-sm font-medium">
             Postal Code
           </label>
           <input
@@ -89,7 +114,7 @@ const CheckoutForm = ({ shippingDetails }) => {
         </div>
 
         <div>
-          <label htmlFor="Country" className="block text-sm font-medium ">
+          <label htmlFor="Country" className="block text-sm font-medium">
             Country
           </label>
           <input
@@ -102,7 +127,7 @@ const CheckoutForm = ({ shippingDetails }) => {
         </div>
 
         <div>
-          <label htmlFor="PhoneNumber" className="block text-sm font-medium ">
+          <label htmlFor="PhoneNumber" className="block text-sm font-medium">
             Phone Number
           </label>
           <input

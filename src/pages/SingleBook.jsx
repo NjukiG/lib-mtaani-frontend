@@ -39,12 +39,13 @@ const SingleBook = () => {
       </div>
       {/* PRODUCT */}
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16">
-        {/* IMAGE */}
-        <img
-          src={book.ImageUrl}
-          alt={book.Title}
-          className="w-96 h-96 object-cover rounded-lg lg:w-full  "
-        />
+        <div className="rounded-lg shadow-lg overflow-hidden">
+          <img
+            src={book.ImageUrl}
+            alt={book.Title}
+            className="object-cover w-full h-full"
+          />
+        </div>
         {/* PRODUCT INFO */}
         <div>
           <h1 className="capitalize text-3xl font-bold">{book.Title}</h1>
@@ -61,19 +62,21 @@ const SingleBook = () => {
               </h4>
             </label>
             <select
-              className="select select-secondary select-bordered select-md"
+              className="select select-secondary select-bordered select-md focus:border-blue-500 focus:ring focus:ring-blue-200"
               value={amount}
               onChange={handleAmount}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
+              {[1, 2, 3].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
             </select>
           </div>
           {/* CART BUTTON */}
           <div className="mt-10 ">
             <button
-              className="btn btn-secondary btn-md"
+              className="w-full rounded-md bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
               onClick={handleAddItem}
             >
               Add to cart

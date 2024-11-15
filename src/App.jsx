@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import SingleBook from "./pages/SingleBook";
 import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          {/* <Route path="/orders" element={<Orders />} /> */}
+          <Route path="/orders" element={<Orders />} />
         </Route>
 
         <Route path="*" element={<Error />} />
