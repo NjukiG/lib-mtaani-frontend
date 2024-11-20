@@ -26,4 +26,4 @@ export const generateAmountOptions = (number) => {
   });
 };
 
-////////////////////
+////// This handler helps with denominations e.g USD, KSH e.t.c

@@ -11,6 +11,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import SingleBook from "./pages/SingleBook";
 import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
+import DashboardLayout from "./pages/Dashboard/DashboardLayout";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/dashboard" element={<DashboardLayout />} />
         </Route>
 
         <Route path="*" element={<Error />} />

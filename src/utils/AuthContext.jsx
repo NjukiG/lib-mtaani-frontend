@@ -7,10 +7,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  // Validate user on each load. If logged in or not.
   useEffect(() => {
     checkUserStatus();
   }, []);
 
+  // Register new user handler
   const registerUser = async (userData) => {
     try {
       const response = await fetch(
@@ -31,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Placeholder for other auth functions
+  // Login handler
   const loginUser = async (credentials) => {
     try {
       const response = await fetch("http://localhost:3000/public/api/login", {
@@ -57,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Logout user
   const logoutUser = async () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -64,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  //  Validates user status if logged in or not.
   const checkUserStatus = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -74,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`, // Ensure the token is included
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -85,13 +89,12 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
       setUser(data.User);
-      console.log(data.User); // Handle the validated user data
+      console.log(data.User);
     } catch (error) {
       console.error("Check user status error:", error);
     }
   };
 
-  // Make sure all functions and user are provided in the value prop
   return (
     <AuthContext.Provider
       value={{ registerUser, loginUser, logoutUser, checkUserStatus, user }}

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BsMoonFill, BsSunFill, BsCart3 } from "react-icons/bs";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 // import { FaBarsStaggered } from "react-icons/fa6";
 
 const themes = {
@@ -15,6 +16,7 @@ const getThemeFromLocalStorage = () => {
 };
 
 const Navbar = () => {
+  const { user } = useAuth();
   const [theme, setTheme] = useState(getThemeFromLocalStorage());
 
   const handleTheme = () => {
@@ -29,7 +31,7 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar sticky bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -52,21 +54,18 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
+            {/* <Link to="/dashboard">Dashboard</Link> */}
             <NavLinks />
           </ul>
         </div>
-
-        {/* THEME ICONS */}
-        
-          {" "}
-          <label className="swap swap-rotate">
-            <input type="checkbox" onChange={handleTheme} />
-            {/* sun icon*/}
-            <BsSunFill className="swap-on h-4 w-4" />
-            {/* moon icon*/}
-            <BsMoonFill className="swap-off h-4 w-4" />
-          </label>
-        
+        {/* THEME ICONS */}{" "}
+        <label className="swap swap-rotate">
+          <input type="checkbox" onChange={handleTheme} />
+          {/* sun icon*/}
+          <BsSunFill className="swap-on h-4 w-4" />
+          {/* moon icon*/}
+          <BsMoonFill className="swap-off h-4 w-4" />
+        </label>
       </div>
       <div className="navbar-center">
         {/* Title */}
@@ -88,14 +87,13 @@ const Navbar = () => {
 
         {/* CART LINK*/}
         <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
-            <div className="indicator">
-              <BsCart3 className="h-6 w-6" />
-              <span className="badge badge-sm badge-primary indicator-item">
-              {/* {cartItems.length} */}
-              2
-              </span>
-            </div>
-          </NavLink>
+          <div className="indicator">
+            <BsCart3 className="h-6 w-6" />
+            <span className="badge badge-sm badge-primary indicator-item">
+              {/* {cartItems.length} */}2
+            </span>
+          </div>
+        </NavLink>
         {/* <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <div className="indicator">
