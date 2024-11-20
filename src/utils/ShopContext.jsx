@@ -18,6 +18,7 @@ export const ShopProvider = ({ children }) => {
   const [cartTotals, setCartTotals] = useState(0);
   const [shippingDetails, setShippingDetails] = useState({});
   const [orders, setOrders] = useState([]);
+  const [orderSummary, setOrderSummary] = useState({});
 
   const token = localStorage.getItem("token");
 
@@ -281,13 +282,33 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // Fetch orders
+  const fetchOrderSummary = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/${user.ID}/orders/summary`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setOrderSummary(data)
+      console.log(data);
+    } catch (error) {
+      console.error(`Failed to fetch orders with ID ${user.ID} :`, error);
+    }
+  };
   // Fetch books and categories on initial render
   useEffect(() => {
     // if (!token) throw new Error("No token found");
 
     fetchCategories();
     fetchBooks();
-    // fetchShippingDetails();
+    // fetchOrderSummary();
   }, []);
 
   const value = {
@@ -299,6 +320,7 @@ export const ShopProvider = ({ children }) => {
     cartTotals,
     shippingDetails,
     orders,
+    orderSummary,
     fetchCategories,
     fetchBooks,
     fetchBookById,
@@ -311,6 +333,7 @@ export const ShopProvider = ({ children }) => {
     updateShippingDetails,
     fetchOrders,
     makeNewOrder,
+    fetchOrderSummary,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

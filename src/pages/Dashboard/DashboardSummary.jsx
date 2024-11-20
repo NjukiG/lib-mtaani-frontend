@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RevenueChart from "./RevenueChart";
+import { useShop } from "../../utils/ShopContext";
 
 const DashboardSummary = () => {
+  const { categories, books, orderSummary, fetchOrderSummary } = useShop();
+
+  useEffect(() => {
+    fetchOrderSummary();
+  }, []);
+
+  if (!orderSummary) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(orderSummary);
   return (
     <main className="flex flex-col w-full p-6 bg-gray-300 min-h-screen">
       {/* Page Header */}
@@ -16,23 +28,23 @@ const DashboardSummary = () => {
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {[
           {
-            title: "Total Sales",
-            value: "$34,567",
+            title: "Revenue",
+            value: `${orderSummary.total_revenue}`,
             icon: "💰",
           },
           {
-            title: "New Orders",
-            value: "87",
+            title: "Orders",
+            value: orderSummary.total_orders,
             icon: "📦",
           },
           {
-            title: "Customers",
-            value: "1,234",
+            title: "Categories",
+            value: categories.length,
             icon: "👥",
           },
           {
-            title: "Products",
-            value: "567",
+            title: "Books",
+            value: books.length,
             icon: "🛒",
           },
         ].map((metric, index) => (
