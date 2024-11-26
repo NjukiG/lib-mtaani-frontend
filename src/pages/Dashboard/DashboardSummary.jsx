@@ -9,11 +9,6 @@ const DashboardSummary = () => {
     fetchOrderSummary();
   }, []);
 
-  if (!orderSummary) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(orderSummary);
   return (
     <main className="flex flex-col w-full p-6 bg-gray-300 min-h-screen">
       {/* Page Header */}

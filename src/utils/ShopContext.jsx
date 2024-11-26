@@ -36,6 +36,65 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+  // Add a new category
+  const addCategory = async (title) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/categories`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(title),
+        }
+      );
+      const data = await response.json();
+      setCategories((prevCategories) => [...prevCategories, data.Category]);
+      console.log("New category added:", data);
+    } catch (error) {
+      console.error("Failed to add new category:", error);
+      if (error.response) {
+        alert(error.response.data.Error || "Failed to add category.");
+      } else {
+        alert("An unexpected error occurred.");
+      }
+    }
+  };
+
+  // Function to add book details
+  const addBookDetails = async (bookDetails) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/protected/api/books",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(bookDetails),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.Error || "Failed to add the book.");
+      }
+
+      const data = await response.json();
+
+      setBooks((prevBooks) => [...prevBooks, data.Book]);
+
+      console.log("Book added successfully:", data.Book);
+      // return data.Book;
+    } catch (error) {
+      console.error("Error adding new book:", error.message);
+      throw new Error(error.message || "An unexpected error occurred.");
+    }
+  };
+
   // Function to fetch books
   const fetchBooks = async () => {
     try {
@@ -76,6 +135,68 @@ export const ShopProvider = ({ children }) => {
         `Failed to fetch books for category with ID ${categoryId}:`,
         error
       );
+    }
+  };
+
+  // Update book details
+  const updateBookByID = async (bookId, updatedDetails) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/books/${bookId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ensure token is set for authentication
+          },
+          body: JSON.stringify(updatedDetails),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.Error || "Failed to update the book.");
+      }
+
+      const updatedBook = await response.json();
+
+      // Update the state with the new book details
+      setBooks((prevBooks) =>
+        prevBooks.map((book) => (book.ID === bookId ? updatedBook : book))
+      );
+
+      console.log("Book updated successfully:", updatedBook);
+      return updatedBook; // Return updated book if needed
+    } catch (error) {
+      console.error("Error updating book:", error.message);
+      throw error; // Re-throw the error for handling in the UI
+    }
+  };
+
+  // Delete book
+  const deleteBookByID = async (bookId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/protected/api/books/${bookId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ensure the token is included
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the book");
+      }
+
+      const result = await response.json();
+      console.log("Book deleted successfully:", result);
+      return result;
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      throw error; // Allow the calling component to handle the error
     }
   };
 
@@ -296,7 +417,7 @@ export const ShopProvider = ({ children }) => {
         }
       );
       const data = await response.json();
-      setOrderSummary(data)
+      setOrderSummary(data);
       console.log(data);
     } catch (error) {
       console.error(`Failed to fetch orders with ID ${user.ID} :`, error);
@@ -321,9 +442,13 @@ export const ShopProvider = ({ children }) => {
     shippingDetails,
     orders,
     orderSummary,
+    addCategory,
+    addBookDetails,
     fetchCategories,
     fetchBooks,
     fetchBookById,
+    updateBookByID,
+    deleteBookByID,
     fetchBooksByCategory,
     fetchCartDetails,
     addItemToCart,

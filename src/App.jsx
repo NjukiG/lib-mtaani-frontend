@@ -12,6 +12,10 @@ import SingleBook from "./pages/SingleBook";
 import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import DashboardLayout from "./pages/Dashboard/DashboardLayout";
+import DashCategories from "./pages/Dashboard/DashCategories";
+import DashBooks from "./pages/Dashboard/DashBooks";
+import AddCategory from "./pages/Dashboard/AddCategory";
+import EditBook from "./pages/Dashboard/EditBook";
 
 function App() {
   return (
@@ -30,6 +34,17 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/dashboard" element={<DashboardLayout />} />
+          <Route
+            path="/dashboard/dashcategories"
+            element={<DashCategories />}
+          />
+          <Route
+            path="/dashboard/dashcategories/addCategory"
+            element={<AddCategory />}
+          />
+
+          <Route path="/dashboard/dashbooks" element={<DashBooks />} />
+          <Route path="/editBook/:ID" element={<EditBook />} />
         </Route>
 
         <Route path="*" element={<Error />} />

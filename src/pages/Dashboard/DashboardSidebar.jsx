@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const DashboardSidebar = () => {
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
       <div className="flex flex-col justify-between flex-1 mt-6">
         <nav>
-          <a
+          <Link
             className="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200"
-            href="#"
+            to="/dashboard"
           >
             <svg
               className="w-5 h-5"
@@ -24,11 +25,11 @@ const DashboardSidebar = () => {
               />
             </svg>
             <span className="mx-4 font-medium">Dashboard</span>
-          </a>
+          </Link>
 
-          <a
+          <Link
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
+            to="/dashboard/dashcategories"
           >
             <svg
               className="w-5 h-5"
@@ -51,12 +52,12 @@ const DashboardSidebar = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="mx-4 font-medium">Accounts</span>
-          </a>
+            <span className="mx-4 font-medium">Categories</span>
+          </Link>
 
-          <a
+          <Link
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
+            to="/dashboard/dashbooks"
           >
             <svg
               className="w-5 h-5"
@@ -72,8 +73,8 @@ const DashboardSidebar = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="mx-4 font-medium">Tickets</span>
-          </a>
+            <span className="mx-4 font-medium">Books</span>
+          </Link>
 
           <a
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
