@@ -6,7 +6,7 @@
   "proxy": "http://localhost:3000",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "CI= vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
