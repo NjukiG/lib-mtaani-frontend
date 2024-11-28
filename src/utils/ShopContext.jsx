@@ -26,7 +26,7 @@ export const ShopProvider = ({ children }) => {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/public/api/categories"
+        "/api/categories"
       );
       const data = await response.json();
       setCategories(data.Categories);
@@ -98,7 +98,7 @@ export const ShopProvider = ({ children }) => {
   // Function to fetch books
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:3000/public/api/books");
+      const response = await fetch("/public/api/books");
       const data = await response.json();
       setBooks(data.Books);
       // console.log(data.Books);
