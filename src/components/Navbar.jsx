@@ -27,6 +27,11 @@ const Navbar = () => {
     setTheme(newTheme);
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logoutUser();
+  };
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
