@@ -85,13 +85,13 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="navbar-end">
-        <div className="form-control">
+        {/* <div className="form-control">
           <input
             type="text"
             placeholder="Search"
             className="input input-bordered w-24 md:w-auto"
           />
-        </div>
+        </div> */}
 
         {/* CART LINK*/}
         <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
@@ -110,7 +110,10 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img alt="Tailwind CSS Navbar component" src="" />
+              <img
+                alt="Tailwind CSS Navbar component"
+                src={user.Name ? user.Name.charAt(0).toUpperCase() : "?"}
+              />
             </div>
           </div>
           <ul
