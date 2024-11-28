@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
       toast(data.Message);
+      navigate("/login");
     } catch (error) {
       console.error("Register user error:", error);
     }
