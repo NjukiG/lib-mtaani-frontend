@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   // Register new user handler
   const registerUser = async (userData) => {
     try {
-      const response = await fetch("/public/api/register", {
+      const response = await fetch("https://library-mtaani.onrender.com/public/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   // Login handler
   const loginUser = async (credentials) => {
     try {
-      const response = await fetch("/public/api/login", {
+      const response = await fetch("https://library-mtaani.onrender.com/public/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("/protected/api/validate", {
+      const response = await fetch("https://library-mtaani.onrender.com/protected/api/validate", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

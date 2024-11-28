@@ -26,7 +26,7 @@ export const ShopProvider = ({ children }) => {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "/api/categories"
+        "https://library-mtaani.onrender.com/public/api/categories"
       );
       const data = await response.json();
       setCategories(data.Categories);
@@ -98,7 +98,7 @@ export const ShopProvider = ({ children }) => {
   // Function to fetch books
   const fetchBooks = async () => {
     try {
-      const response = await fetch("/public/api/books");
+      const response = await fetch("https://library-mtaani.onrender.com/public/api/books");
       const data = await response.json();
       setBooks(data.Books);
       // console.log(data.Books);
