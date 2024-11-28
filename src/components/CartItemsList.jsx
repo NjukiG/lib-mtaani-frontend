@@ -10,9 +10,10 @@ const CartItemsList = () => {
 
   return (
     <div>
-      {cartItems.map((item) => {
-        return <CartItem key={item.ID} cartItem={item} />;
-      })}
+      {cartItems &&
+        cartItems.map((item) => {
+          return <CartItem key={item.ID} cartItem={item} />;
+        })}
     </div>
   );
 };

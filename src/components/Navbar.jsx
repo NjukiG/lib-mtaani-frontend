@@ -109,7 +109,7 @@ const Navbar = () => {
             role="button"
             className="btn btn-ghost btn-circle avatar"
           >
-            <div className="w-10 rounded-full">
+            <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
               {/* <img
                 alt="Tailwind CSS Navbar component"
                 src={user.Name ? user.Name.charAt(0).toUpperCase() : "?"}

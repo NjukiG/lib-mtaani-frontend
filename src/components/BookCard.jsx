@@ -1,9 +1,11 @@
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useShop } from "../utils/ShopContext";
 
 const BookCard = ({ book }) => {
   const { ID, Title, Description, ImageUrl, Price } = book;
+  const {addItemToCart} = useShop()
 
   return (
     <Link
