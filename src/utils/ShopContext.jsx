@@ -431,8 +431,10 @@ export const ShopProvider = ({ children }) => {
 
     fetchCategories();
     fetchBooks();
+    fetchCartDetails(user.ID);
+
     // fetchOrderSummary();
-  }, []);
+  }, [token]);
 
   const value = {
     categories,
