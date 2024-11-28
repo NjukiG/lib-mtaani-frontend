@@ -32,6 +32,7 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  console.log(user);
   return (
     <div className="navbar sticky bg-base-100">
       <div className="navbar-start">
@@ -104,10 +105,7 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src={user.Name.slice(0, 1)}
-              />
+              <img alt="Tailwind CSS Navbar component" src="" />
             </div>
           </div>
           <ul
