@@ -50,7 +50,7 @@ const Recomended = () => {
       <Slider {...settings}>
         {books &&
           books
-            .slice(8, 15)
+            .slice(0, 10)
             .map((book) => <BookCard key={book.ID} book={book} />)}
       </Slider>
     </div>
