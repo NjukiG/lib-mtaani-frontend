@@ -20,7 +20,7 @@ const BookCard = ({ book }) => {
         </h3>
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
           {Description.length > 150
-            ? Description.slice(0, 150)
+            ? Description.slice(0, 100)
             : Description || "No description available"}
         </p>
       </div>
