@@ -431,6 +431,7 @@ export const ShopProvider = ({ children }) => {
 
     fetchCategories();
     fetchBooks();
+    fetchCartDetails();
     // fetchOrderSummary();
   }, []);
 

@@ -10,7 +10,6 @@ const SingleBook = () => {
 
   useEffect(() => {
     fetchBookById(ID);
-    fetchCartDetails();
   }, [ID]);
 
   const [amount, setAmount] = useState(1);
