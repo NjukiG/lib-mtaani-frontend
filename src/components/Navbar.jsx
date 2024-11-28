@@ -4,6 +4,7 @@ import { BsMoonFill, BsSunFill, BsCart3 } from "react-icons/bs";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
+import { useShop } from "../utils/ShopContext";
 // import { FaBarsStaggered } from "react-icons/fa6";
 
 const themes = {
@@ -17,6 +18,7 @@ const getThemeFromLocalStorage = () => {
 
 const Navbar = () => {
   const { user } = useAuth();
+  const { cartItems } = useShop();
   const [theme, setTheme] = useState(getThemeFromLocalStorage());
 
   const handleTheme = () => {
@@ -90,7 +92,7 @@ const Navbar = () => {
           <div className="indicator">
             <BsCart3 className="h-6 w-6" />
             <span className="badge badge-sm badge-primary indicator-item">
-              {/* {cartItems.length} */}2
+              {cartItems.length}
             </span>
           </div>
         </NavLink>
