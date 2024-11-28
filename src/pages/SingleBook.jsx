@@ -2,15 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useShop } from "../utils/ShopContext";
 import { formatPrice } from "../utils";
+import { useAuth } from "../utils/AuthContext";
 
 const SingleBook = () => {
   const { ID } = useParams();
   const { book, cartItems, fetchBookById, fetchCartDetails, addItemToCart } =
     useShop();
+  
+  const {user} = useAuth()
 
   useEffect(() => {
     fetchBookById(ID);
   }, [ID]);
+
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("No token found");
+
+  useEffect(() => {
+    fetchCartDetails(user.ID);
+  }, [token]);
 
   const [amount, setAmount] = useState(1);
 
