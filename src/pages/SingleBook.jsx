@@ -10,9 +10,9 @@ const SingleBook = () => {
 
   useEffect(() => {
     fetchBookById(ID);
+    fetchCartDetails();
   }, [ID]);
 
-  console.log(cartItems);
   const [amount, setAmount] = useState(1);
 
   const handleAmount = (e) => {
@@ -26,6 +26,8 @@ const SingleBook = () => {
   };
 
   const dollarsAmount = book?.Price ? formatPrice(book.Price * 100) : "N/A";
+
+  console.log(cartItems);
 
   return (
     <section className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
