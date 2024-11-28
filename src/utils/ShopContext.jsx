@@ -6,6 +6,7 @@ import { useAuth } from "./AuthContext";
 const ShopContext = createContext();
 
 export const ShopProvider = ({ children }) => {
+  const API_BASE_URL = "https://library-mtaani.onrender.com";
   const { user } = useAuth();
 
   const navigate = useNavigate();
@@ -25,9 +26,7 @@ export const ShopProvider = ({ children }) => {
   // Function to fetch categories
   const fetchCategories = async () => {
     try {
-      const response = await fetch(
-        "https://library-mtaani.onrender.com/public/api/categories"
-      );
+      const response = await fetch(`${API_BASE_URL}/public/api/categories`);
       const data = await response.json();
       setCategories(data.Categories);
       // console.log(data.Categories);
@@ -39,17 +38,14 @@ export const ShopProvider = ({ children }) => {
   // Add a new category
   const addCategory = async (title) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/protected/api/categories`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(title),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/protected/api/categories`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(title),
+      });
       const data = await response.json();
       setCategories((prevCategories) => [...prevCategories, data.Category]);
       console.log("New category added:", data);
@@ -66,17 +62,14 @@ export const ShopProvider = ({ children }) => {
   // Function to add book details
   const addBookDetails = async (bookDetails) => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/protected/api/books",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(bookDetails),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/protected/api/books`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(bookDetails),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -98,7 +91,7 @@ export const ShopProvider = ({ children }) => {
   // Function to fetch books
   const fetchBooks = async () => {
     try {
-      const response = await fetch("https://library-mtaani.onrender.com/public/api/books");
+      const response = await fetch(`${API_BASE_URL}/public/api/books`);
       const data = await response.json();
       setBooks(data.Books);
       // console.log(data.Books);
@@ -111,7 +104,7 @@ export const ShopProvider = ({ children }) => {
   const fetchBookById = async (bookId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/public/api/books/${bookId}`
+        `${API_BASE_URL}/public/api/books/${bookId}`
       );
       const data = await response.json();
       setBook(data.Book);
@@ -125,7 +118,7 @@ export const ShopProvider = ({ children }) => {
   const fetchBooksByCategory = async (categoryId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/public/api/categories/${categoryId}/books`
+        `${API_BASE_URL}/public/api/categories/${categoryId}/books`
       );
       const data = await response.json();
       setCategoryBooks(data.Books);
@@ -142,7 +135,7 @@ export const ShopProvider = ({ children }) => {
   const updateBookByID = async (bookId, updatedDetails) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/books/${bookId}`,
+        `${API_BASE_URL}/protected/api/books/${bookId}`,
         {
           method: "PUT",
           headers: {
@@ -177,7 +170,7 @@ export const ShopProvider = ({ children }) => {
   const deleteBookByID = async (bookId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/books/${bookId}`,
+        `${API_BASE_URL}/protected/api/books/${bookId}`,
         {
           method: "DELETE",
           headers: {
@@ -204,7 +197,7 @@ export const ShopProvider = ({ children }) => {
   const fetchCartDetails = async (cartId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/cart/${user.ID}/review`,
+        `${API_BASE_URL}/protected/api/cart/${user.ID}/review`,
         {
           method: "GET",
           headers: {
@@ -231,7 +224,7 @@ export const ShopProvider = ({ children }) => {
   const addItemToCart = async (bookId, quantity) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/cart/${user.ID}/items`,
+        `${API_BASE_URL}/protected/api/cart/${user.ID}/items`,
         {
           method: "POST",
           headers: {
@@ -260,7 +253,7 @@ export const ShopProvider = ({ children }) => {
   const removeItemFromCart = async (bookId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/cart/${user.ID}/items/${bookId}`,
+        `${API_BASE_URL}/protected/api/cart/${user.ID}/items/${bookId}`,
         {
           method: "DELETE",
           headers: {
@@ -287,7 +280,7 @@ export const ShopProvider = ({ children }) => {
   const addShippingDetails = async (shippingDetails) => {
     try {
       const response = await fetch(
-        "http://localhost:3000/protected/api/shipping-details",
+        `${API_BASE_URL}/protected/api/shipping-details`,
         {
           method: "POST",
           headers: {
@@ -314,7 +307,7 @@ export const ShopProvider = ({ children }) => {
   const fetchShippingDetails = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/protected/api/shipping-details",
+        `${API_BASE_URL}/protected/api/shipping-details`,
         {
           method: "GET",
           headers: {
@@ -335,7 +328,7 @@ export const ShopProvider = ({ children }) => {
   const updateShippingDetails = async (details) => {
     try {
       const response = await fetch(
-        "http://localhost:3000/protected/api/shipping-details",
+        `${API_BASE_URL}/protected/api/shipping-details`,
         {
           method: "PUT",
           headers: {
@@ -361,7 +354,7 @@ export const ShopProvider = ({ children }) => {
   const fetchOrders = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/cart/${user.ID}/orders`,
+        `${API_BASE_URL}/protected/api/cart/${user.ID}/orders`,
         {
           method: "GET",
           headers: {
@@ -382,7 +375,7 @@ export const ShopProvider = ({ children }) => {
   const makeNewOrder = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/cart/${user.ID}/orders`,
+        `${API_BASE_URL}/protected/api/cart/${user.ID}/orders`,
         {
           method: "POST",
           headers: {
@@ -407,7 +400,7 @@ export const ShopProvider = ({ children }) => {
   const fetchOrderSummary = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/protected/api/${user.ID}/orders/summary`,
+        `${API_BASE_URL}/protected/api/${user.ID}/orders/summary`,
         {
           method: "GET",
           headers: {

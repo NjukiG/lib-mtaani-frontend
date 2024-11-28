@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const API_BASE_URL = "https://library-mtaani.onrender.com";
+
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   // Register new user handler
   const registerUser = async (userData) => {
     try {
-      const response = await fetch("https://library-mtaani.onrender.com/public/api/register", {
+      const response = await fetch(`${API_BASE_URL}/public/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   // Login handler
   const loginUser = async (credentials) => {
     try {
-      const response = await fetch("https://library-mtaani.onrender.com/public/api/login", {
+      const response = await fetch(`${API_BASE_URL}/public/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +72,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("https://library-mtaani.onrender.com/protected/api/validate", {
+      const response = await fetch(`${API_BASE_URL}/protected/api/validate`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
