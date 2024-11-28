@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       const data = await response.json();
-      console.log(data.Message);
+      toast(data.Message);
     } catch (error) {
       console.error("Register user error:", error);
     }
@@ -51,14 +52,14 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", data.token);
       await checkUserStatus();
       console.log(data);
-      // toast.success("Logged in successfully");
+      toast.success("Logged in successfully");
       navigate("/");
     } catch (error) {
       console.error(
         "Login user error:",
         error || "Please double check your credentials"
       );
-      // toast.error("Please double check your credentials");
+      toast.error("Please double check your credentials");
     }
   };
 
